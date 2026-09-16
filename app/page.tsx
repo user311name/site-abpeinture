@@ -1,69 +1,200 @@
-import Image from "next/image";
+import Link from "next/link";
+import PaintRoller from "@/components/PaintRoller";
+
+const services = [
+  [
+    "01",
+    "Peinture intérieure",
+    "Murs, plafonds, décoration et remise en peinture.",
+    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85",
+  ],
+  [
+    "02",
+    "Peinture extérieure",
+    "Façades, volets, portes et boiseries.",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85",
+  ],
+  [
+    "03",
+    "Rénovation",
+    "Préparation des supports et rénovation complète.",
+    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=85",
+  ],
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <main>
+      <section className="homeHero">
+        <div className="homeHeroCopy">
+          <span className="eyebrow">
+            AB PEINTURE — TOULOUSE
+          </span>
+
+          <h1>
+            Votre projet
+            <br />
+            prend une <strong>nouvelle dimension.</strong>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p>
+            Peinture, rénovation et façades. Un savoir-faire professionnel
+            pour transformer vos espaces avec précision.
           </p>
+
+          <div className="heroActions">
+            <Link className="greenButton" href="/contact">
+              Demander un devis <span>→</span>
+            </Link>
+
+            <Link
+              className="outlineLightButton"
+              href="/realisations"
+            >
+              Voir nos réalisations →
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="homeHeroVisual">
+          <img
+            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=90"
+            alt="Réalisation intérieure"
+          />
+
+          <div className="homeHeroShade" />
+
+          <div className="heroTag">
+            <span>AB PEINTURE</span>
+            <b>Le détail fait la différence.</b>
+          </div>
+
+          <PaintRoller
+            className="heroRoller"
+            color="green"
+          />
         </div>
-      </main>
-    </div>
+
+        <div className="paintSwipe swipeGreen" />
+        <div className="paintSwipe swipeRed" />
+      </section>
+
+      <section className="trustStrip">
+        {[
+          ["10+", "Années d’expérience"],
+          ["31", "Haute-Garonne"],
+          ["✓", "Garantie décennale"],
+          ["100%", "Engagement qualité"],
+        ].map(([big, small]) => (
+          <div key={small}>
+            <strong>{big}</strong>
+            <span>{small}</span>
+          </div>
+        ))}
+      </section>
+
+      <section className="homeIntro sectionPad">
+        <div>
+          <span className="sectionLabel">
+            01 — NOTRE SAVOIR-FAIRE
+          </span>
+
+          <h2>
+            Une expertise
+            <br />
+            pensée pour <em>vos projets.</em>
+          </h2>
+        </div>
+
+        <p>
+          Découvrez notre univers, nos prestations et nos réalisations.
+          Chaque besoin possède désormais son propre espace.
+        </p>
+      </section>
+
+      <section className="homeServiceCards sectionPad">
+        {services.map(([number, title, text, image]) => (
+          <Link
+            href="/services"
+            className="homeServiceCard"
+            key={number}
+          >
+            <div className="cardImage">
+              <img src={image} alt={title} />
+              <span>{number}</span>
+            </div>
+
+            <div className="cardBody">
+              <h3>{title}</h3>
+
+              <p>{text}</p>
+
+              <b>
+                Découvrir →
+              </b>
+            </div>
+          </Link>
+        ))}
+      </section>
+
+      <section className="homeFeature sectionPad">
+        <div className="featureText">
+          <span className="sectionLabel">
+            02 — RÉALISATIONS
+          </span>
+
+          <h2>
+            Des projets
+            <br />
+            <em>qui parlent.</em>
+          </h2>
+
+          <p>
+            Un aperçu de notre travail. Retrouvez l’ensemble des réalisations
+            dans notre galerie.
+          </p>
+
+          <Link
+            className="greenButton"
+            href="/realisations"
+          >
+            Voir la galerie <span>→</span>
+          </Link>
+        </div>
+
+        <div className="featureImage">
+          <img
+            src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1300&q=90"
+            alt="Réalisation AB Peinture"
+          />
+
+          <div className="featureNumber">
+            01 / 06
+          </div>
+        </div>
+      </section>
+
+      <section className="greenBand">
+        <div>
+          <span>UN PROJET DE PEINTURE ?</span>
+
+          <h2>
+            Parlons-en <em>ensemble.</em>
+          </h2>
+
+          <Link
+            className="darkButton"
+            href="/contact"
+          >
+            Obtenir mon devis →
+          </Link>
+        </div>
+
+        <PaintRoller
+          className="bandRoller"
+          color="white"
+        />
+      </section>
+    </main>
   );
 }
