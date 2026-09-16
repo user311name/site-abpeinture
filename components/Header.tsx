@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function Header() {
@@ -34,6 +34,29 @@ export default function Header() {
     setSearchOpen(false);
   };
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        setSearchOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
   return (
     <>
       <header className="siteHeader">
@@ -60,6 +83,7 @@ export default function Header() {
         </Link>
 
         <nav
+          id="mobile-navigation"
           className={`mainNav ${menuOpen ? "open" : ""}`}
           aria-label="Navigation principale"
         >
@@ -98,7 +122,7 @@ export default function Header() {
             className="mobileNavCta"
             onClick={closeMenu}
           >
-            Demander un devis
+            <span>Demander un devis</span>
             <b>→</b>
           </Link>
         </nav>
@@ -128,15 +152,19 @@ export default function Header() {
 
           <button
             type="button"
-            className={`mobileMenu ${menuOpen ? "active" : ""}`}
+            className={`mobileMenuButton ${
+              menuOpen ? "active" : ""
+            }`}
             onClick={toggleMenu}
-            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-label={
+              menuOpen ? "Fermer le menu" : "Ouvrir le menu"
+            }
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
           >
-            <i />
-            <i />
-            <i />
+            <span />
+            <span />
+            <span />
           </button>
         </div>
       </header>
@@ -144,9 +172,9 @@ export default function Header() {
       {menuOpen && (
         <button
           type="button"
-          className="mobileMenuBackdrop"
-          aria-label="Fermer le menu"
+          className="mobileMenuOverlay"
           onClick={closeMenu}
+          aria-label="Fermer le menu"
         />
       )}
 
