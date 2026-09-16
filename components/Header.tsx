@@ -25,13 +25,28 @@ export default function Header() {
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen((current) => !current);
+    setSearchOpen(false);
+  };
+
   return (
     <>
       <header className="siteHeader">
-        <Link href="/" className="brand" onClick={() => setMenuOpen(false)}>
+        <Link
+          href="/"
+          className="brand"
+          onClick={closeMenu}
+          aria-label="AB Peinture - Accueil"
+        >
           <span className="brandIcon">
             <span className="brandArc red" />
             <span className="brandArc green" />
+
             <span className="brandHouse">
               <i />
               <b />
@@ -44,50 +59,80 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav className={`mainNav ${menuOpen ? "open" : ""}`}>
-          <Link href="/" onClick={() => setMenuOpen(false)}>
-            Accueil
+        <nav
+          className={`mainNav ${menuOpen ? "open" : ""}`}
+          aria-label="Navigation principale"
+        >
+          <Link href="/" onClick={closeMenu}>
+            <span>Accueil</span>
+            <b>→</b>
           </Link>
 
-          <Link href="/services" onClick={() => setMenuOpen(false)}>
-            Services
+          <Link href="/services" onClick={closeMenu}>
+            <span>Services</span>
+            <b>→</b>
           </Link>
 
-          <Link href="/realisations" onClick={() => setMenuOpen(false)}>
-            Réalisations
+          <Link href="/realisations" onClick={closeMenu}>
+            <span>Réalisations</span>
+            <b>→</b>
           </Link>
 
-          <Link href="/avant-apres" onClick={() => setMenuOpen(false)}>
-            Avant / Après
+          <Link href="/avant-apres" onClick={closeMenu}>
+            <span>Avant / Après</span>
+            <b>→</b>
           </Link>
 
-          <Link href="/a-propos" onClick={() => setMenuOpen(false)}>
-            À propos
+          <Link href="/a-propos" onClick={closeMenu}>
+            <span>À propos</span>
+            <b>→</b>
           </Link>
 
-          <Link href="/contact" onClick={() => setMenuOpen(false)}>
-            Contact
+          <Link href="/contact" onClick={closeMenu}>
+            <span>Contact</span>
+            <b>→</b>
+          </Link>
+
+          <Link
+            href="/contact"
+            className="mobileNavCta"
+            onClick={closeMenu}
+          >
+            Demander un devis
+            <b>→</b>
           </Link>
         </nav>
 
         <div className="headerActions">
           <button
+            type="button"
             className={`searchButton ${searchOpen ? "active" : ""}`}
-            onClick={() => setSearchOpen(!searchOpen)}
+            onClick={() => {
+              setSearchOpen((current) => !current);
+              setMenuOpen(false);
+            }}
             aria-label="Rechercher"
+            aria-expanded={searchOpen}
           >
             <span />
           </button>
 
-          <Link href="/contact" className="headerCta">
+          <Link
+            href="/contact"
+            className="headerCta"
+            onClick={closeMenu}
+          >
             Demander un devis
-            <b>↗</b>
+            <b>→</b>
           </Link>
 
           <button
-            className="mobileMenu"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menu"
+            type="button"
+            className={`mobileMenu ${menuOpen ? "active" : ""}`}
+            onClick={toggleMenu}
+            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
           >
             <i />
             <i />
@@ -95,6 +140,15 @@ export default function Header() {
           </button>
         </div>
       </header>
+
+      {menuOpen && (
+        <button
+          type="button"
+          className="mobileMenuBackdrop"
+          aria-label="Fermer le menu"
+          onClick={closeMenu}
+        />
+      )}
 
       {searchOpen && (
         <div className="searchPanel">
@@ -104,11 +158,21 @@ export default function Header() {
             <input
               autoFocus
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Rechercher..."
+              aria-label="Rechercher"
             />
 
-            <button onClick={() => setSearchOpen(false)}>×</button>
+            <button
+              type="button"
+              onClick={() => {
+                setSearchOpen(false);
+                setSearch("");
+              }}
+              aria-label="Fermer la recherche"
+            >
+              ×
+            </button>
           </div>
 
           {search.length > 0 && (
@@ -121,10 +185,11 @@ export default function Header() {
                     onClick={() => {
                       setSearchOpen(false);
                       setSearch("");
+                      setMenuOpen(false);
                     }}
                   >
                     <span>{result.name}</span>
-                    <b>↗</b>
+                    <b>→</b>
                   </Link>
                 ))
               ) : (
