@@ -1984,4 +1984,65 @@ button {
     top: 64px !important;
     height: calc(100dvh - 64px) !important;
   }
+}/* =========================================================
+   FIX MENU MOBILE — LIENS CLIQUABLES
+   ========================================================= */
+
+@media (max-width: 720px) {
+  .mobileMenuOverlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 10000 !important;
+    display: block !important;
+    border: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .siteHeader {
+    position: relative !important;
+    z-index: 10002 !important;
+  }
+
+  .siteHeader .mainNav {
+    position: fixed !important;
+    z-index: 10003 !important;
+    pointer-events: auto !important;
+  }
+
+  .siteHeader .mainNav.open {
+    pointer-events: auto !important;
+    z-index: 10003 !important;
+  }
+
+  .siteHeader .mainNav a {
+    position: relative !important;
+    z-index: 10004 !important;
+    display: flex !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+  }
+
+  .siteHeader .headerActions {
+    position: relative !important;
+    z-index: 10005 !important;
+  }
+
+  .siteHeader .mobileMenuButton {
+    position: relative !important;
+    z-index: 10006 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+  }
+
+  .siteHeader .brand {
+    position: relative !important;
+    z-index: 10005 !important;
+  }
+
+  .mobileNavCta {
+    position: relative !important;
+    z-index: 10004 !important;
+    pointer-events: auto !important;
+  }
 }
