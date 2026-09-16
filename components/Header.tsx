@@ -30,7 +30,7 @@ export default function Header() {
   };
 
   const toggleMenu = () => {
-    setMenuOpen((current) => !current);
+    setMenuOpen((value) => !value);
     setSearchOpen(false);
   };
 
@@ -42,21 +42,6 @@ export default function Header() {
     };
   }, [menuOpen]);
 
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setMenuOpen(false);
-        setSearchOpen(false);
-      }
-    };
-
-    window.addEventListener("keydown", handleEscape);
-
-    return () => {
-      window.removeEventListener("keydown", handleEscape);
-    };
-  }, []);
-
   return (
     <>
       <header className="siteHeader">
@@ -64,7 +49,7 @@ export default function Header() {
           href="/"
           className="brand"
           onClick={closeMenu}
-          aria-label="AB Peinture - Accueil"
+          aria-label="AB Peinture Toulouse"
         >
           <span className="brandIcon">
             <span className="brandArc red" />
@@ -83,7 +68,6 @@ export default function Header() {
         </Link>
 
         <nav
-          id="mobile-navigation"
           className={`mainNav ${menuOpen ? "open" : ""}`}
           aria-label="Navigation principale"
         >
@@ -130,13 +114,12 @@ export default function Header() {
         <div className="headerActions">
           <button
             type="button"
-            className={`searchButton ${searchOpen ? "active" : ""}`}
+            className="searchButton"
             onClick={() => {
-              setSearchOpen((current) => !current);
+              setSearchOpen((value) => !value);
               setMenuOpen(false);
             }}
             aria-label="Rechercher"
-            aria-expanded={searchOpen}
           >
             <span />
           </button>
@@ -156,11 +139,8 @@ export default function Header() {
               menuOpen ? "active" : ""
             }`}
             onClick={toggleMenu}
-            aria-label={
-              menuOpen ? "Fermer le menu" : "Ouvrir le menu"
-            }
+            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={menuOpen}
-            aria-controls="mobile-navigation"
           >
             <span />
             <span />
@@ -188,7 +168,6 @@ export default function Header() {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Rechercher..."
-              aria-label="Rechercher"
             />
 
             <button
@@ -197,7 +176,6 @@ export default function Header() {
                 setSearchOpen(false);
                 setSearch("");
               }}
-              aria-label="Fermer la recherche"
             >
               ×
             </button>
